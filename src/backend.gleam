@@ -7,9 +7,11 @@ import gleam/list
 import gleam/result
 import mist
 import service
+import sqlight
 
 pub fn main() {
-  let assert Ok(service) = service.new()
+  use conn <- sqlight.with_connection("tmp.sqlite")
+  let assert Ok(service) = service.new(conn)
   let assert Ok(_) =
     mist.new(
       // Handler function: takes a request and produces a response
